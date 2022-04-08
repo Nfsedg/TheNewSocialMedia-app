@@ -1,0 +1,26 @@
+.loginWrapper {
+    display: grid;
+    place-items: center;
+    padding-top: 120px;
+}
+.loginWrapper h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.loginWrapper p {
+    margin-bottom: 30px;
+}
+.formWrapper {
+    margin: 0 auto;
+    width: 400px;
+}
+.formWrapper input {
+    display: block;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.formWrapper button {
+    height: 30px;
+    width: 100%;
+}

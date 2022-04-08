@@ -1,0 +1,31 @@
+.comment_wrapper {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    width: 99%;
+    background-color: rgba(255, 255, 255, 0.233);
+    padding: 10px;
+}
+
+.comment_wrapper p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.comment_form {
+    display: flex;
+    justify-content: center;
+    border-radius: 1px;
+    background-color: rgba(74, 74, 75, 0.11);
+}
+.comment_form input {
+    border: none;
+    height: 30px;
+    width: 85%;
+    padding-left: 10px;
+    background-color: transparent;
+    outline: none;
+}
+.comment_form button {
+    background-color: transparent;
+    border: none;
+}

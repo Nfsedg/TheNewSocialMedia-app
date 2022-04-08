@@ -1,0 +1,23 @@
+.signupWrapper {
+    display: grid;
+    place-items: center;
+    padding-top: 120px;
+}
+.signupWrapper h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.formWrapper {
+    margin: 0 auto;
+    width: 400px;
+}
+.formWrapper input {
+    display: block;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.formWrapper button {
+    height: 30px;
+    width: 100%;
+}
