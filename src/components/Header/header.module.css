@@ -1,6 +1,8 @@
 .headerwrapper {
+    display: inline-block;
     background-color: rgb(86, 151, 160);
     box-shadow: .5px 0.5px 2px rgba(0, 0, 0, 0.062);
+    width: 100%;
 }
 
 .header {

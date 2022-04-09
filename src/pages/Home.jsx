@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { TokenContext } from '../context/TokenContext';
 import PostFrom from '../components/PostsFrom/index';
 import PostsList from '../components/PostsList/PostsList';
-import style from './styles/groups.module.css';
+import style from './styles/home.module.css';
 
 function Home() {
   const { token } = useContext(TokenContext);

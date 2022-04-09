@@ -9,7 +9,6 @@ import Header from './components/Header/Header';
 import User from './pages/User';
 import Groups from './pages/Groups';
 import { TokenContext, useToken } from './context/TokenContext';
-import './App.css';
 
 function App() {
   return (
