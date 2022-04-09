@@ -1,7 +1,8 @@
 .postFrom {
     background-color: rgb(187, 205, 207);
     height: 48px;
-    width: 580px;
+    width: 95%;
+    max-width: 580px;
     margin: 0 auto;
     display: flex;
     align-items: center;
