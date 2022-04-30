@@ -1,0 +1,19 @@
+.iconSection {
+    display: flex;
+    align-items: center;
+}
+.iconSection p {
+    font-weight: 500;
+}
+.button_icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.button_icon svg {
+    width: 20px;
+    height: 20px;
+}
+.button_icon svg:hover {
+    color: cornflowerblue;
+}

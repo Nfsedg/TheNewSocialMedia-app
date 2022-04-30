@@ -1,39 +1,64 @@
 import PropTypes from 'prop-types';
-import { useState, useContext } from 'react';
-import { deletePost } from '../../services/postsService';
+import {
+  useState, useContext,
+} from 'react';
+import { deletePost, editPost } from '../../services/postsService';
 import { TokenContext } from '../../context/TokenContext';
+import { dateFormat } from '../../services/dateFormat';
+import PostContext from './PostContent';
+import CommentButton from '../CommentButton/CommentButton';
+import PostMenu from './PostMenu';
 import CommentList from '../CommentLists/index';
 import style from './postNote.module.css';
 import img from '../../assets/social-ico.webp';
-import commentIcon from '../../assets/comment.webp';
 import useComments from '../../hooks/useComments';
 
 function PostNote({
   content, username, date, id, updatePostRender,
 }) {
+  const [contentPost, setContentPost] = useState(content);
   const [deleteError, setDeleteError] = useState(false);
   const [showComment, setShowComment] = useState(false);
+  const [showEditInput, setEditInput] = useState(false);
+  const [showmenu, setShowmenu] = useState(false);
   const { token } = useContext(TokenContext);
-  const dateformat = new Date(date);
   const { comments } = useComments(id);
-
-  const handleClick = async () => {
-    deletePost(id, token.token)
-      .then(() => updatePostRender(id))
-      .catch(() => {
-        setDeleteError(true);
-        setTimeout(() => {
-          setDeleteError(false);
-        }, 4000);
-      });
-  };
+  const dateformat = dateFormat(date);
 
   const handleShowComment = () => {
     setShowComment(!showComment);
   };
+  const handleShowMenu = () => {
+    setShowmenu(!showmenu);
+  };
 
-  const iconStyle = {
-    backgroundImage: `url(${commentIcon})`,
+  const handleClick = async () => {
+    if (token) {
+      deletePost(id, token.token)
+        .then(() => updatePostRender(id))
+        .catch((err) => setDeleteError(err));
+    } else {
+      setDeleteError(true);
+    }
+  };
+
+  const handlerEdit = async (e) => {
+    e.preventDefault();
+    const newContentPost = {
+      content: contentPost,
+      postId: id,
+    };
+
+    if (token) {
+      editPost(newContentPost, token.token)
+        .then((data) => {
+          setContentPost(data.content);
+          setEditInput((prev) => !prev);
+        })
+        .catch((err) => setDeleteError(err));
+    } else {
+      setDeleteError(true);
+    }
   };
 
   return (
@@ -45,27 +70,30 @@ function PostNote({
             <div>
               <img src={img} alt="" />
               <h1>{username}</h1>
+              <small>{`${dateformat}`}</small>
             </div>
-            <div>
-              <span>{`${dateformat.getDay()}/${dateformat.getMonth() + 1}/${dateformat.getFullYear()}`}</span>
-            </div>
+            {token && (
+              <PostMenu
+                setShowmenu={setShowmenu}
+                handleClick={handleClick}
+                showmenu={showmenu}
+                setEditInput={setEditInput}
+                handleShowMenu={handleShowMenu}
+              />
+            )}
           </div>
-          <button type="button" onClick={handleClick}>Delete</button>
           <div>
-            <p>{content}</p>
+            <PostContext
+              showEditInput={showEditInput}
+              handlerEdit={handlerEdit}
+              contentPost={contentPost}
+              setContentPost={setContentPost}
+            />
           </div>
         </article>
       </section>
       <section>
-        <button
-          className={style.comment_icon}
-          style={iconStyle}
-          onClick={handleShowComment}
-          type="button"
-          aria-label="show comments"
-        />
-        {' '}
-        <span>{comments.length}</span>
+        <CommentButton handleShowComment={handleShowComment} comments={comments.length} />
         { showComment && <CommentList postId={id} /> }
       </section>
     </div>

@@ -25,14 +25,33 @@ const createPost = async (content, token) => {
 };
 
 const deletePost = async (id, token) => {
-  const response = await fetch(`${apiUrl}posts/${id}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
+  try {
+    const response = await fetch(`${apiUrl}posts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
 
-  return response;
+    return response;
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
-export { getPost, createPost, deletePost };
+const editPost = async (data, token) => {
+  const response = await fetch(`${apiUrl}posts`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  return response.json();
+};
+
+export {
+  getPost, createPost, deletePost, editPost,
+};
