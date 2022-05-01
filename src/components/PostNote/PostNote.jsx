@@ -5,7 +5,7 @@ import {
 import { deletePost, editPost } from '../../services/postsService';
 import { TokenContext } from '../../context/TokenContext';
 import { dateFormat } from '../../services/dateFormat';
-import PostContext from './PostContent';
+import PostContent from './PostContent';
 import CommentButton from '../CommentButton/CommentButton';
 import PostMenu from './PostMenu';
 import CommentList from '../CommentLists/index';
@@ -83,11 +83,12 @@ function PostNote({
             )}
           </div>
           <div>
-            <PostContext
+            <PostContent
               showEditInput={showEditInput}
               handlerEdit={handlerEdit}
               contentPost={contentPost}
               setContentPost={setContentPost}
+              setEditInput={setEditInput}
             />
           </div>
         </article>
