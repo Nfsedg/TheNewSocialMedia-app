@@ -9,7 +9,9 @@ function Login() {
   if (token) return <Navigate to={`/user/${token.username}`} />;
 
   return (
-    <LoginForm />
+    <main>
+      <LoginForm />
+    </main>
   );
 }
 

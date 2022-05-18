@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { createUser } from '../../services/userService';
 import style from './signupForm.module.css';
 
@@ -8,6 +8,7 @@ function SignupForm() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ function SignupForm() {
     };
 
     try {
-      await createUser(newUser);
+      await createUser(newUser).then(() => setRedirect(true));
     } catch (err) {
       setError('Invalid information');
     }
@@ -27,6 +28,12 @@ function SignupForm() {
     setName('');
     setPassword('');
   };
+
+  if (redirect) {
+    return (
+      <Navigate to="/login" />
+    );
+  }
 
   return (
     <div className={style.signupWrapper}>

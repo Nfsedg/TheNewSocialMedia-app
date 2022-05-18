@@ -32,7 +32,7 @@ function PostNote({
     setShowmenu(!showmenu);
   };
 
-  const handleClick = async () => {
+  const handleDelete = async () => {
     if (token) {
       deletePost(id, token.token)
         .then(() => updatePostRender(id))
@@ -75,7 +75,7 @@ function PostNote({
             {token && (
               <PostMenu
                 setShowmenu={setShowmenu}
-                handleClick={handleClick}
+                handleClick={handleDelete}
                 showmenu={showmenu}
                 setEditInput={setEditInput}
                 handleShowMenu={handleShowMenu}
