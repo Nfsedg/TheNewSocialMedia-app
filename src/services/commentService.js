@@ -1,7 +1,7 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
-const getComments = async (postId) => {
-  const response = await fetch(`${apiUrl}comments/${postId}`);
+const getComments = async (postId, limit = 0, offset = 0) => {
+  const response = await fetch(`${apiUrl}comments/${postId}/${limit}/${offset}`);
 
   const comments = await response.json();
 
