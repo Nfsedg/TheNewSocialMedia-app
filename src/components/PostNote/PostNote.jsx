@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import {
-  useState, useContext,
+  useState, useContext, lazy, Suspense,
 } from 'react';
 import { deletePost, editPost } from '../../services/postsService';
 import { TokenContext } from '../../context/TokenContext';
@@ -8,10 +8,11 @@ import { dateFormat } from '../../services/dateFormat';
 import PostContent from './PostContent';
 import CommentButton from '../CommentButton/CommentButton';
 import PostMenu from './PostMenu';
-import CommentList from '../CommentLists/index';
 import style from './postNote.module.css';
 import img from '../../assets/social-ico.webp';
 import useComments from '../../hooks/useComments';
+
+const CommentList = lazy(() => import('../CommentLists/index'));
 
 function PostNote({
   content, username, date, id, updatePostRender,
@@ -95,7 +96,9 @@ function PostNote({
       </section>
       <section>
         <CommentButton handleShowComment={handleShowComment} comments={comments.length} />
-        { showComment && <CommentList postId={id} /> }
+        <Suspense fallback="Loading...">
+          { showComment && <CommentList postId={id} /> }
+        </Suspense>
       </section>
     </div>
   );
