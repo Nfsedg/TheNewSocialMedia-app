@@ -9,8 +9,8 @@ const createUser = async (newUser) => {
 };
 
 const searchUser = async (token) => {
-  const response = await fetch('https://the-new-social-media-api-nfsedg.vercel.app/user', {
-    method: 'POST',
+  const response = await fetch(`${apiUrl}user`, {
+    method: 'GET',
     headers: {
       Authorization: `bearer ${token}`,
     },
@@ -19,4 +19,32 @@ const searchUser = async (token) => {
   return response;
 };
 
-export { createUser, searchUser };
+const editUser = async (userUpdateData, token) => {
+  const data = {
+    bio: userUpdateData.bio,
+    name: userUpdateData.name,
+  };
+
+  console.log(userUpdateData);
+
+  const response = await fetch(`${apiUrl}user`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      Authorization: `bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  // const response = await axios.put(`${apiUrl}user`, data, {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `bearer ${token}`,
+  //   },
+  // });
+
+  return response;
+};
+
+export { createUser, searchUser, editUser };

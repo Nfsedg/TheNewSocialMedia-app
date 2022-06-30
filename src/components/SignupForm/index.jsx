@@ -17,6 +17,8 @@ function SignupForm() {
       username,
       password,
       name,
+      timestamps: new Date().getTime(),
+      biography: '',
     };
 
     try {

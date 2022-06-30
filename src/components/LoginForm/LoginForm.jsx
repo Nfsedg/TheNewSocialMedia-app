@@ -12,20 +12,15 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userLogin = {
-      username,
-      password,
-    };
-
-    setUsername('');
-    setPassword('');
 
     try {
-      const response = await loginService(userLogin);
+      const response = await loginService({ username, password });
       setToken(response);
     } catch (err) {
       setError(err.message);
     }
+    setUsername('');
+    setPassword('');
   };
 
   if (token) {

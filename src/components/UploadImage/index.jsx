@@ -1,9 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, memo } from 'react';
 import style from './upload.module.css';
+import useTokenStorage from '../../hooks/useTokenStorage';
+import { searchUser } from '../../services/userService';
+import { postImage, updateImage } from '../../services/imageService';
 
 function UploadImage() {
   const [image, setImage] = useState();
   const imagePreview = useRef(null);
+  const { token } = useTokenStorage();
 
   const readUrl = (imageInput) => {
     if (imagePreview && imageInput.target.files[0]) {
@@ -16,29 +20,28 @@ function UploadImage() {
     }
   };
 
-  const uploadImage = (e) => {
+  const uploadImage = async (e) => {
     e.preventDefault();
 
-    // Working on API for endpoint for upload images
-    // const form = new FormData();
-    // form.append('image', image);
+    const form = new FormData();
+    form.append('image', image);
 
-    // fetch('http://localhost:3005/upload', {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   cache: 'no-cache',
-    //   credentials: 'same-origin',
-    //   redirect: 'follow',
-    //   referrerPolicy: 'no-referrer',
-    //   body: form,
-    // })
-    //   .then((data) => data.json())
-    //   .catch((err) => console.warn(err));
+    await searchUser(token.token)
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.profileImage) {
+          updateImage({ token: token.token, form });
+        } else {
+          postImage({ token: token.token, form })
+            .then((imgData) => imgData.json())
+            .catch((err) => console.warn(err));
+        }
+      })
+      .catch((err) => console.warn(err));
   };
 
   return (
     <section>
-      <p style={{ color: 'red' }}>Still working on endpoint to upload profile picture feature</p>
       <form onSubmit={uploadImage}>
         { image && (<img src={image} className={style.previewImage} alt="" ref={imagePreview} />) }
         <input
@@ -56,4 +59,4 @@ function UploadImage() {
   );
 }
 
-export default UploadImage;
+export default memo(UploadImage);

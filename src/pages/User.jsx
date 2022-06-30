@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { TokenContext } from '../context/TokenContext';
-import UploadImage from '../components/UploadImage';
+import ProfileForm from '../components/ProfileForm';
+import GetImage from '../components/GetImage';
 
 function User() {
   const { username } = useParams();
@@ -16,9 +17,11 @@ function User() {
 
   return (
     <main>
+      <GetImage />
       <h1>{username.toUpperCase()}</h1>
       <button type="button" onClick={logoutHandler}>Logout</button>
-      <UploadImage />
+
+      <ProfileForm />
     </main>
   );
 }
