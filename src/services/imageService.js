@@ -1,17 +1,13 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 // Working on API endpoints
-const getImage = async ({ token }) => {
-  const response = await fetch(`${apiUrl}upload/`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
+const getImage = async ({ imageId }) => {
+  const response = await fetch(`${apiUrl}upload/${imageId}`);
 
   return response.json();
 };
 
 const postImage = async ({ token, form }) => {
-  const response = await fetch('http://localhost:3005/upload', {
+  const response = await fetch('http://localhost:3005/upload/', {
     method: 'POST',
     headers: {
       Authorization: `bearer ${token}`,
@@ -25,7 +21,7 @@ const postImage = async ({ token, form }) => {
 };
 
 const updateImage = async ({ token, form }) => {
-  const response = await fetch('http://localhost:3005/upload', {
+  const response = await fetch('http://localhost:3005/upload/', {
     method: 'PUT',
     headers: {
       Authorization: `bearer ${token}`,

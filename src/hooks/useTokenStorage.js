@@ -5,7 +5,7 @@ const useTokenStorage = () => {
 
   useEffect(() => {
     if (!token) {
-      const tokenFromStorage = window.localStorage.getItem('TOKEN_USER_SOCIAL');
+      const tokenFromStorage = window.sessionStorage.getItem('TOKEN_USER_SOCIAL');
       setToken(JSON.parse(tokenFromStorage));
     }
   }, []);

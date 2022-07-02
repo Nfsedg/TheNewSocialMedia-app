@@ -28,6 +28,7 @@ function PostsList({ posts, setPosts }) {
               id={item.id}
               content={item.content}
               username={item.user.name}
+              imageId={item.user.profileImage}
               date={item.date}
               updatePostRender={updatePostRender}
             />

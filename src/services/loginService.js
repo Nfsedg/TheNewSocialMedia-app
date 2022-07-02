@@ -19,7 +19,7 @@ const loginService = async ({ username, password }) => {
   if (data.error) {
     throw new Error(data.error);
   } else {
-    window.localStorage.setItem('TOKEN_USER_SOCIAL', JSON.stringify(data));
+    window.sessionStorage.setItem('TOKEN_USER_SOCIAL', JSON.stringify(data));
   }
 
   return data;

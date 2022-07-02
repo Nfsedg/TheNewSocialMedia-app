@@ -9,13 +9,13 @@ import PostContent from './PostContent';
 import CommentButton from '../CommentButton/CommentButton';
 import PostMenu from './PostMenu';
 import style from './postNote.module.css';
-import img from '../../assets/social-ico.webp';
 import useComments from '../../hooks/useComments';
+import GetImage from '../GetImage';
 
 const CommentList = lazy(() => import('../CommentLists/index'));
 
 function PostNote({
-  content, username, date, id, updatePostRender,
+  content, username, date, id, updatePostRender, imageId,
 }) {
   const [contentPost, setContentPost] = useState(content);
   const [deleteError, setDeleteError] = useState(false);
@@ -69,7 +69,7 @@ function PostNote({
         <article className={style.post__body}>
           <div className={style.post__userdata}>
             <div>
-              <img src={img} alt="" />
+              <GetImage imageId={imageId} />
               <h1>{username}</h1>
               <small>{`${dateformat}`}</small>
             </div>
@@ -112,4 +112,5 @@ PostNote.propTypes = {
   username: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   updatePostRender: PropTypes.func.isRequired,
+  imageId: PropTypes.string.isRequired,
 };

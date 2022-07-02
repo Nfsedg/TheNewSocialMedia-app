@@ -21,11 +21,9 @@ const searchUser = async (token) => {
 
 const editUser = async (userUpdateData, token) => {
   const data = {
-    bio: userUpdateData.bio,
+    biography: userUpdateData.biography,
     name: userUpdateData.name,
   };
-
-  console.log(userUpdateData);
 
   const response = await fetch(`${apiUrl}user`, {
     method: 'PUT',
@@ -36,13 +34,6 @@ const editUser = async (userUpdateData, token) => {
     },
     body: JSON.stringify(data),
   });
-
-  // const response = await axios.put(`${apiUrl}user`, data, {
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `bearer ${token}`,
-  //   },
-  // });
 
   return response;
 };

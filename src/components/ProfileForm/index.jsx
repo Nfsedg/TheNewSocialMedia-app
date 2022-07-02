@@ -5,7 +5,7 @@ import UploadImage from '../UploadImage';
 
 const userInitialState = {
   name: '',
-  bio: '',
+  biography: '',
 };
 
 export default function ProfileForm() {
@@ -17,7 +17,7 @@ export default function ProfileForm() {
 
     const userUpdateData = {
       name: userData.name,
-      bio: userData.bio,
+      biography: userData.biography,
     };
 
     editUser(userUpdateData, token.token)
@@ -43,8 +43,8 @@ export default function ProfileForm() {
       <form onSubmit={submitHandler}>
         <label htmlFor="name" aria-label="name">Name</label>
         <input type="text" id="name" name="name" value={userData.name} onChange={onChangeHandler} />
-        <label htmlFor="bio" aria-label="biography">biography</label>
-        <input type="text" id="bio" name="bio" value={userData.bio} onChange={onChangeHandler} />
+        <label htmlFor="biography" aria-label="biography">biography</label>
+        <input type="text" id="biography" name="biography" value={userData.biography} onChange={onChangeHandler} />
         <button type="submit">Send</button>
       </form>
     </section>

@@ -18,7 +18,6 @@ function SignupForm() {
       password,
       name,
       timestamps: new Date().getTime(),
-      biography: '',
     };
 
     try {

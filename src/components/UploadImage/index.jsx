@@ -30,11 +30,15 @@ function UploadImage() {
       .then((data) => data.json())
       .then((data) => {
         if (data.profileImage) {
-          updateImage({ token: token.token, form });
-        } else {
+          updateImage({ token: token.token, form })
+            .then((imgData) => imgData.json())
+            .catch((err) => console.warn(err));
+        } else if (!data.profileImage) {
           postImage({ token: token.token, form })
             .then((imgData) => imgData.json())
             .catch((err) => console.warn(err));
+        } else {
+          throw new Error('user information not found');
         }
       })
       .catch((err) => console.warn(err));
