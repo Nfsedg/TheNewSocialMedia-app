@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { TokenContext } from '../context/TokenContext';
+import DefaultProfileImage from '../components/DefaultProfileImage';
 import useLoggedUser from '../hooks/useLoggedUser';
 import ProfileForm from '../components/ProfileForm';
 import GetImage from '../components/GetImage';
@@ -19,7 +20,9 @@ function User() {
 
   return (
     <main>
-      {userInfo.profileImage && <GetImage imageId={userInfo.profileImage} />}
+      {userInfo.profileImage
+        ? <GetImage imageId={userInfo.profileImage} />
+        : <DefaultProfileImage />}
       <h1>
         Username:
         {' '}

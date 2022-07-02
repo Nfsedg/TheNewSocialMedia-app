@@ -2,6 +2,7 @@ import PropType from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getImage } from '../../services/imageService';
 import useTokenStorage from '../../hooks/useTokenStorage';
+import DefaultProfileImage from '../DefaultProfileImage';
 
 export default function GetImage({ imageId }) {
   const [uri, setUri] = useState('');
@@ -19,7 +20,7 @@ export default function GetImage({ imageId }) {
     }
   }, [token]);
 
-  if (!uri || !extension) return <h2>No profile image</h2>;
+  if (!uri || !extension) return <DefaultProfileImage />;
 
   return (
     <div>
