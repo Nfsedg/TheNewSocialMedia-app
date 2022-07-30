@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import PostNote from '../PostNote/PostNote';
-import { getPost } from '../../services/postsService';
+import usePosts from '../../hooks/usePosts';
+import PostLoader from '../Loader';
+import WarningMessage from '../WarningMessage';
 
-function PostsList({ posts, setPosts }) {
-  useEffect(async () => {
-    const postsData = await getPost();
-    setPosts(postsData);
-  }, []);
+function PostsList() {
+  const {
+    posts, setPosts, error, loading,
+  } = usePosts();
 
   const updatePostRender = (id) => {
     const postFind = posts.find((item) => item.id === id);
@@ -22,34 +21,32 @@ function PostsList({ posts, setPosts }) {
   return (
     <div>
       {
-        posts.map((item) => (
-          <div key={item.id}>
-            <PostNote
-              id={item.id}
-              content={item.content}
-              username={item.user.name}
-              imageId={item.user.profileImage}
-              date={item.date}
-              updatePostRender={updatePostRender}
-            />
-          </div>
-        ))
+        error && <WarningMessage>Something was wrong</WarningMessage>
+      }
+      {
+        loading
+          ? (
+            <div>
+              <PostLoader />
+              <PostLoader />
+              <PostLoader />
+            </div>
+          )
+          : posts.map((item) => (
+            <div key={item.id}>
+              <PostNote
+                id={item.id}
+                content={item.content}
+                username={item.user.name}
+                imageId={item.user.profileImage}
+                date={item.date}
+                updatePostRender={updatePostRender}
+              />
+            </div>
+          ))
           }
     </div>
   );
 }
 
 export default PostsList;
-
-PostsList.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-    }),
-  })).isRequired,
-  setPosts: PropTypes.func.isRequired,
-};

@@ -1,0 +1,12 @@
+.warningMessageWrapper {
+    max-width: 460px;
+    background-color: rgb(182, 23, 23);
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 500;
+    line-height: 10px;
+    border-radius: 5px;
+}

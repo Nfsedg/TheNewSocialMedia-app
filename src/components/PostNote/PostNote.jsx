@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { deletePost, editPost } from '../../services/postsService';
 import { TokenContext } from '../../context/TokenContext';
-import { dateFormat } from '../../services/dateFormat';
+import useTimeAgo from '../../hooks/useTimeAgo';
 import PostContent from './PostContent';
 import CommentButton from '../CommentButton/CommentButton';
 import PostMenu from './PostMenu';
@@ -24,7 +24,7 @@ function PostNote({
   const [showmenu, setShowmenu] = useState(false);
   const { token } = useContext(TokenContext);
   const { comments } = useComments(id);
-  const dateformat = dateFormat(date);
+  const dateformat = useTimeAgo(date);
 
   const handleShowComment = () => {
     setShowComment(!showComment);

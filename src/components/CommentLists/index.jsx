@@ -1,28 +1,11 @@
-import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import CommentForm from '../CommentForm';
 import Comment from '../Comment';
-import useComments from '../../hooks/useComments';
-import { postComments } from '../../services/commentService';
-import { TokenContext } from '../../context/TokenContext';
 import style from './commentList.module.css';
+import useComments from '../../hooks/useComments';
 
 function CommentList({ postId }) {
-  const { comments, setComments } = useComments(postId);
-  const { token } = useContext(TokenContext);
-  const [comment, setComment] = useState('');
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
-    const bodyComment = {
-      postId,
-      content: comment,
-    };
-    const postData = await postComments(token.token, bodyComment);
-    setComments([...comments, postData]);
-    setComment('');
-  };
-
+  const { comments } = useComments(postId);
   return (
     <div className={style.comment_wrapper}>
       <div>
@@ -32,10 +15,7 @@ function CommentList({ postId }) {
           ))
         }
       </div>
-      <form onSubmit={submitHandler} className={style.comment_form}>
-        <input type="text" placeholder="Comment" value={comment} onChange={(e) => setComment(e.target.value)} />
-        <button type="submit">Send</button>
-      </form>
+      <CommentForm postId={postId} />
     </div>
   );
 }

@@ -9,6 +9,7 @@ const getComments = async (postId, limit = 0, offset = 0) => {
 };
 
 const postComments = async (token, content) => {
+  if (!token) return new Error('You must be logged to comment');
   const response = await fetch(`${apiUrl}comments`, {
     method: 'POST',
     headers: {

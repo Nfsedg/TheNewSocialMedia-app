@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { TokenContext } from '../../context/TokenContext';
 import styles from './header.module.css';
@@ -37,4 +37,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);
